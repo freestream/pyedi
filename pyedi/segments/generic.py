@@ -1,8 +1,7 @@
 import re
 from typing import Tuple, Optional
+from pyedi.segments.abstract_segment import AbstractSegment
 
-from numpy import mat
-from app.segments.abstract_segment import AbstractSegment
 
 class Generic(AbstractSegment):
     arguments = []
@@ -18,6 +17,10 @@ class Generic(AbstractSegment):
         regex = r"(\D+)(\d*)"
         matches = re.search(regex, identifier, re.IGNORECASE)
 
+        if matches is None:
+            print("HITTA: '" + identifier + "'")
+            return identifier, None
+
         if matches.group(2):
             return matches.group(1), int(matches.group(2))
 
@@ -25,6 +28,7 @@ class Generic(AbstractSegment):
 
     def to_serializable(self):
         return self.arguments
+
 
 if __name__ == '__main__':
     pass

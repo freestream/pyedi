@@ -1,8 +1,8 @@
 import re
-from app.utilities import ReversibleIterator
-from app.segments.utilities import split_segment
-from app.segments.abstract_segment import AbstractSegment
-from app.settings import Settings
+from pyedi.utilities import ReversibleIterator
+from pyedi.segments.utilities import split_segment
+from pyedi.segments.abstract_segment import AbstractSegment
+from pyedi.settings import Settings
 
 class Product(AbstractSegment):
     identification = 'PO1'

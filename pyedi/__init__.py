@@ -1,10 +1,11 @@
 import json
 from typing import Optional
-from app.segments.utilities import split_segment
-from app.segments.interchange import Interchange as InterchangeSegment
-from app.segments.abstract_segment import AbstractSegment
-from app.utilities import ReversibleIterator
-from app.settings import Settings
+from pyedi.segments.utilities import split_segment
+from pyedi.segments.interchange import Interchange as InterchangeSegment
+from pyedi.segments.transaction_set import TransactionSet as TransactionSetSegment
+from pyedi.segments.abstract_segment import AbstractSegment
+from pyedi.utilities import ReversibleIterator
+from pyedi.settings import Settings
 
 
 class Edi:
@@ -39,7 +40,7 @@ class Edi:
 
             break
 
-        print(json.dumps(collection))
+        return collection
 
     def build(self, segment: list, segments: ReversibleIterator) -> Optional[AbstractSegment]:
         identifier = segment[0]
@@ -47,7 +48,18 @@ class Edi:
         if identifier == InterchangeSegment.identification:
             interchange = InterchangeSegment(
                 segment, segments, self.settings)
+
             return interchange.to_serializable()
+
+        if identifier == TransactionSetSegment.identification:
+            transaction_set = TransactionSetSegment(
+                segment, segments, self.settings)
+
+            return transaction_set.to_serializable()
+
+
+def parse_str(content: str, settings: Settings) -> list:
+    return Edi(settings).parse(content)
 
 
 def parse_file(path: str, settings: Settings) -> list:
@@ -55,6 +67,6 @@ def parse_file(path: str, settings: Settings) -> list:
 
     with open(path) as f:
         content = f.read()
-        transaction_sets.append(Edi(settings).parse(content))
+        transaction_sets.append(parse_str(content, settings))
 
     return transaction_sets
