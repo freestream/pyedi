@@ -1,4 +1,3 @@
-import json
 from typing import Optional
 from pyedi.segments.utilities import split_segment
 from pyedi.segments.interchange import Interchange as InterchangeSegment

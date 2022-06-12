@@ -1,4 +1,3 @@
-from calendar import TUESDAY
 from pyedi.utilities import ReversibleIterator
 from pyedi.segments.utilities import split_segment
 from pyedi.segments.transaction_set import TransactionSet as TransactionSetSegment
