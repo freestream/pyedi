@@ -32,7 +32,7 @@ print(json.dump(transaction_set))
 ```
 
 ### Tests
-Example EDI 835 files can be found in `tests/files`. To run the tests use `pytest`.
+Example EDI files can be found in `tests/files`. To run the tests use `pytest`.
 ```
 python -m pytest
 ```
