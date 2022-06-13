@@ -19,10 +19,3 @@ class ReversibleIterator():
             raise StopIteration
         else:
             return self.history[self.i]
-
-
-def list_get(l: list, idx: int, default):
-    try:
-        return l[idx]
-    except IndexError:
-        return default
